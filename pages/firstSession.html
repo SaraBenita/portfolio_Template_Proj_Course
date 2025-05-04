@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>CV Form - Multi Step</title>
+    <style>
+        body {
+            font-family: Arial;
+            max-width: 600px;
+            margin: auto;
+        }
+
+        .step {
+            display: none;
+        }
+
+        .step.active {
+            display: block;
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            padding: 5px;
+        }
+
+        .checkbox-container {
+            margin-top: 10px;
+        }
+
+        .project {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-top: 10px;
+        }
+
+        button {
+            margin-top: 15px;
+            padding: 8px 12px;
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>CV Submission</h1>
+
+    <form id="cvForm">
+        <!-- Step 1: Personal Info -->
+        <div class="step active" id="step1">
+            <h2>Step 1: Personal Information</h2>
+            <label>Email: <input type="email" id="email" required></label>
+            <label>Phone Number: <input type="text" id="phoneNumber" required></label>
+            <label>GitHub Profile: <input type="url" id="github"></label>
+            <label>LinkedIn Profile: <input type="url" id="linkedin"></label>
+            <label>About Me: <textarea id="about" required></textarea></label>
+
+            <div class="checkbox-container">
+                <label><input type="checkbox" id="weather"> Weather Website</label>
+                <label><input type="checkbox" id="matach"> Matach Website</label>
+            </div>
+        </div>
+
+        <!-- Step 2: Skills -->
+        <div class="step" id="step2">
+            <h2>Step 2: Skills</h2>
+            <div id="skillsContainer">
+                <label>Skills (comma-separated): </label>
+                <input type="text" id="skill0" class="skill-input" required>
+            </div>
+            <button type="button" id="AddSkill">Add Skill</button>
+        </div>
+
+        <!-- Step 3: Projects -->
+        <div class="step" id="step3">
+            <h2>Step 3: Projects</h2>
+            <div id="projectsContainer"></div>
+            <button type="button" id="handelClickAddProject">Add Project</button>
+        </div>
+
+        <!-- Navigation buttons -->
+        <div class="navigation">
+            <button type="button" id="backBtn">Back</button>
+            <button type="button" id="nextBtn">Next</button>
+            <button type="submit" id="submitBtn" style="display:none;">Submit</button>
+        </div>
+    </form>
+
+    <script type="module" src="../scripts/firstSession.js"></script>
+</body>
+
+</html>
