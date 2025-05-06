@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
     registrationForm.addEventListener("submit", (event) => {
         event.preventDefault();
 
-        const userName = document.getElementById("userName").value;
+        const displayName = document.getElementById("displayName").value;
         const email = document.getElementById("email").value;
         const password = document.getElementById("password").value;
 
@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const userId = users.length > 0 ? users[users.length - 1].userId + 1 : 1;
 
         // Create a new user
-        const newUser = new User(userId, userName, email, password);
+        const newUser = new User(userId, displayName, email, password);
 
         // Add the new user to the users array
         users.push(newUser);

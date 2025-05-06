@@ -71,7 +71,7 @@ document.getElementById("cvForm").addEventListener("submit", function (e) {
     const github = document.getElementById("github").value;
     const linkedin = document.getElementById("linkedin").value;
     const about = document.getElementById("about").value;
-    //const skills = document.getElementById("skills").value.split(",").map(s => s.trim());
+    
 
     const skillInputs = document.querySelectorAll(".skill-input");
     const skills = Array.from(skillInputs)

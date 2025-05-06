@@ -1,20 +1,34 @@
-
-
+// טוען את כל המשתמשים מה-localStorage
 export function loadUsers() {
-
-    return JSON.parse(localStorage.getItem("users") || []);
+    return JSON.parse(localStorage.getItem("users") || "[]");
 }
 
+// מחזיר את המשתמש הנוכחי, אם יש
 export function getCurrentUser() {
-    return JSON.parse(localStorage.getItem("currentUser") || null);
+    const stored = localStorage.getItem("currentUser");
+    return stored ? JSON.parse(stored) : null;
 }
 
+// מנתק את המשתמש ומעביר לדף הבית
 export function logoutUser() {
-    localStorage.removeItem("currentUser"); // Clear user data from localStorage
-    document.location.href = "homePage.html"; // Redirect to registration page
+    localStorage.removeItem("currentUser");
+    document.location.href = "homePage.html";
 }
 
+// טוען את קורות החיים של משתמש לפי כתובת מייל
+export function loadUserCVInfo(email) {
+    const users = loadUsers();
+    const user = users.find(u => u.email === email);
 
+    if (!user) {
+        console.warn(`User with email ${email} not found.`);
+        return null;
+    }
+
+    return user.cv || null;
+}
+
+// שומר קורות חיים למשתמש לפי כתובת מייל
 export function saveCVInfoToUser(email, CVInfo) {
     const users = loadUsers();
     const userIndex = users.findIndex(u => u.email === email);
@@ -25,9 +39,46 @@ export function saveCVInfoToUser(email, CVInfo) {
     }
 
     users[userIndex].cv = CVInfo;
-    console.log(users[userIndex]);
 
     localStorage.setItem("users", JSON.stringify(users));
     localStorage.setItem("currentUser", JSON.stringify(users[userIndex]));
     return true;
+}
+
+export async function getWeatherByCountry(country) {
+    const countryToCityMap = {
+        "Israel": "Jerusalem",
+        "United States": "Washington",
+        "France": "Paris",
+        "Germany": "Berlin",
+        "Japan": "Tokyo",
+        "India": "New Delhi",
+        "United Kingdom": "London"
+    };
+
+    const city = countryToCityMap[country];
+    if (!city) {
+        console.warn(`No city mapping found for country: ${country}`);
+        return null;
+    }
+
+    const url = `https://wttr.in/${city}?format=j1`;
+
+    try {
+        const response = await fetch(url);
+        if (!response.ok) throw new Error("Failed to fetch weather");
+        const data = await response.json();
+
+        const current = data.current_condition?.[0];
+        return {
+            city,
+            temperature: current.temp_C,
+            description: current.weatherDesc?.[0]?.value,
+            feelsLike: current.FeelsLikeC,
+            humidity: current.humidity
+        };
+    } catch (error) {
+        console.error("Weather fetch error:", error);
+        return null;
+    }
 }
