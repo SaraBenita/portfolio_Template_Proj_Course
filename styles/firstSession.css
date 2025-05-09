@@ -1,0 +1,213 @@
+/* Portfolio Form Styles */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+:root {
+    --primary-color: #4A90E2;
+    --primary-hover: #417acb;
+    --secondary-color: #F5F7FA;
+    --accent-color: #50E3C2;
+    --accent-hover: #45c9aa;
+    --text-color: #333;
+    --bg-color: #fff;
+    --border-radius: 8px;
+    --gutter: 16px;
+}
+
+/* Base Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    color: var(--text-color);
+    background-color: var(--secondary-color);
+    line-height: 1.6;
+    padding: var(--gutter);
+}
+
+h1,
+h2 {
+    font-weight: 600;
+    margin-bottom: var(--gutter);
+    color: var(--primary-color);
+}
+
+h1 {
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: calc(var(--gutter) * 2);
+}
+
+h2 {
+    font-size: 1.5rem;
+    border-bottom: 2px solid var(--accent-color);
+    padding-bottom: 8px;
+}
+
+/* Form Container */
+form#cvForm {
+    background: var(--bg-color);
+    max-width: 900px;
+    margin: 0 auto;
+    padding: calc(var(--gutter) * 2);
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+/* Steps */
+.step {
+    display: none;
+    animation: fadeIn 0.4s ease-in-out;
+}
+
+.step.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Labels and Inputs */
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="url"],
+textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #d1d5db;
+    border-radius: var(--border-radius);
+    background: #fafafa;
+    margin-bottom: var(--gutter);
+    font-size: 1rem;
+    transition: border-color 0.2s;
+}
+
+input:focus,
+textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
+textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+/* Checkbox Container */
+.checkbox-container {
+    display: flex;
+    gap: var(--gutter);
+    margin-bottom: var(--gutter);
+}
+
+.checkbox-container label {
+    display: flex;
+    align-items: center;
+    font-weight: 400;
+}
+
+.checkbox-container input[type="checkbox"] {
+    margin-right: 8px;
+    accent-color: var(--primary-color);
+}
+
+/* Skills and Projects */
+#skillsContainer,
+#projectsContainer {
+    margin-bottom: var(--gutter);
+}
+
+.skill-input {
+    margin-top: 8px;
+}
+
+.project {
+    border: 1px solid #e5e7eb;
+    padding: var(--gutter);
+    border-radius: var(--border-radius);
+    background: #fff;
+}
+
+.project+.project {
+    margin-top: var(--gutter);
+}
+
+/* Buttons */
+button {
+    display: inline-block;
+    padding: 12px 24px;
+    border: none;
+    border-radius: var(--border-radius);
+    background: var(--primary-color);
+    color: #fff;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+    text-align: center;
+}
+
+button[type="button"] {
+    background: var(--accent-color);
+}
+
+button:hover {
+    background: var(--primary-hover);
+    transform: translateY(-2px);
+}
+
+button[type="button"]:hover {
+    background: var(--accent-hover);
+    transform: translateY(-2px);
+}
+
+button:disabled {
+    background: #9ca3af;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Navigation Buttons Layout */
+.navigation {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: var(--gutter);
+}
+
+.navigation button {
+    flex: 1 1 calc(33% - var(--gutter));
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    form#cvForm {
+        padding: var(--gutter);
+    }
+
+    h1 {
+        font-size: 1.75rem;
+    }
+
+    .navigation button {
+        flex: 1 1 100%;
+    }
+}

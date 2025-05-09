@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
+    <link rel="stylesheet" href="../styles/homePage.css" />
+    <title>User Details</title>
 </head>
 
 <body>
@@ -48,10 +49,36 @@
         </section>
 
         <section id="matachSection" style="display: none;">
+            <h2 class="mb-4">Currency Exchange</h2>
 
+            <div class="exchange-controls mb-3">
+                <label for="fromCurrency">From:</label>
+                <select id="fromCurrency" class="form-select">
+                    <option value="USD">USD</option>
+                    <option value="EUR">EUR</option>
+                    <option value="ILS">ILS</option>
+                    <!-- הוסף כאן עוד מטבעות כרצונך -->
+                </select>
+
+                <label for="toCurrency" class="mt-2">To:</label>
+                <select id="toCurrency" class="form-select">
+                    <option value="ILS">ILS</option>
+                    <option value="USD">USD</option>
+                    <option value="EUR">EUR</option>
+                    <!-- הוסף כאן עוד מטבעות כרצונך -->
+                </select>
+
+                <button type="button" id="convertBtn" class="btn btn-primary mt-3">
+                    Convert
+                </button>
+            </div>
+
+            <div id="exchangeResult">
+                <!-- כאן יופיעו התוצאות -->
+                <p><strong>Rate:</strong> <span id="exchange-rate"></span></p>
+                <p><strong>Last Updated:</strong> <span id="exchange-date"></span></p>
+            </div>
         </section>
-
-
     </main>
 
 

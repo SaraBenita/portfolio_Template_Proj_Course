@@ -1,0 +1,253 @@
+/* Home Page Styles for User CV Display */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+:root {
+    --primary-color: #4A90E2;
+    --primary-hover: #417ACB;
+    --secondary-color: #F5F7FA;
+    --accent-color: #50E3C2;
+    --accent-hover: #45C9AA;
+    --text-color: #333;
+    --bg-color: #fff;
+    --border-radius: 8px;
+    --gutter: 16px;
+}
+
+/* Base Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--secondary-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Navbar */
+.navbar {
+    background: var(--bg-color);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    padding: var(--gutter);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.navbar-brand {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+#navDisplayName {
+    color: var(--accent-color);
+    margin-left: 4px;
+    font-weight: 500;
+}
+
+#logoutBtn {
+    background: transparent;
+    border: 2px solid var(--accent-color);
+    color: var(--accent-color);
+    padding: 8px 16px;
+    border-radius: var(--border-radius);
+    font-weight: 500;
+    transition: background 0.2s, color 0.2s;
+}
+
+#logoutBtn:hover {
+    background: var(--accent-color);
+    color: #fff;
+}
+
+/* Main Content */
+main {
+    flex: 1;
+    padding: calc(var(--gutter) * 2);
+    max-width: 900px;
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--gutter);
+}
+
+section {
+    background: var(--bg-color);
+    padding: var(--gutter);
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    margin-bottom: calc(var(--gutter) * 2);
+}
+
+/* Ensure CV section spans full width */
+#cvSection {
+    flex: 1 1 100%;
+}
+
+/* Weather and Exchange side by side */
+#weatherSection,
+#matachSection {
+    flex: 1 1 calc(50% - var(--gutter));
+    margin-bottom: 0;
+    /* spacing handled by gap */
+}
+
+h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: var(--gutter);
+    color: var(--primary-color);
+    border-bottom: 2px solid var(--accent-color);
+    padding-bottom: 8px;
+}
+
+/* CV Section Content */
+#cvSection p {
+    margin-bottom: 8px;
+}
+
+#cvSection p strong {
+    color: var(--accent-color);
+}
+
+#cvSection a {
+    color: var(--primary-color);
+    text-decoration: none;
+    word-break: break-all;
+}
+
+#cvSection a:hover {
+    text-decoration: underline;
+}
+
+/* Skills List as Badges */
+#cvSection ul:first-of-type {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 8px;
+    margin-bottom: var(--gutter);
+    padding: 0;
+}
+
+#cvSection ul:first-of-type li {
+    background: var(--accent-color);
+    color: #fff;
+    padding: 6px 12px;
+    border-radius: var(--border-radius);
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+/* Projects List as Cards */
+#cvSection ul:last-of-type {
+    list-style: none;
+    padding: 0;
+    margin-top: 8px;
+}
+
+#cvSection ul:last-of-type li {
+    background: var(--secondary-color);
+    padding: var(--gutter);
+    border-radius: var(--border-radius);
+    margin-bottom: var(--gutter);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+#cvSection ul:last-of-type li strong {
+    display: block;
+    margin-bottom: 4px;
+    color: var(--primary-color);
+}
+
+#cvSection ul:last-of-type li a {
+    display: inline-block;
+    margin-top: 6px;
+    color: var(--accent-color);
+    font-size: 0.9rem;
+}
+
+#cvSection ul:last-of-type li a:hover {
+    text-decoration: underline;
+}
+
+/* Weather & Exchange Section Inputs */
+#weatherSection label,
+#matachSection label {
+    display: block;
+    margin-bottom: 4px;
+    font-weight: 500;
+}
+
+#weatherSection select,
+#matachSection select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #d1d5db;
+    border-radius: var(--border-radius);
+    background: #fafafa;
+    font-size: 1rem;
+    margin-bottom: var(--gutter);
+}
+
+#weatherSection p,
+#matachSection p {
+    margin-bottom: 6px;
+}
+
+#weatherSection p strong,
+#matachSection p strong {
+    color: var(--accent-color);
+}
+
+/* Convert Button Styling */
+#convertBtn, #createCvBtn {
+    background: var(--primary-color);
+    color: #fff;
+    border: none;
+    padding: 12px 24px;
+    border-radius: var(--border-radius);
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+}
+
+#convertBtn:hover, #createCvBtn:hover {
+    background: var(--primary-hover);
+    transform: translateY(-2px);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    main {
+        display: block;
+    }
+
+    #cvSection,
+    #weatherSection,
+    #matachSection {
+        flex: 1 1 100%;
+        margin-bottom: calc(var(--gutter) * 2);
+    }
+
+    .navbar-brand {
+        font-size: 1rem;
+    }
+
+    #logoutBtn {
+        padding: 6px 12px;
+    }
+}

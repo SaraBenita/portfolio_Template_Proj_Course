@@ -82,3 +82,38 @@ export async function getWeatherByCountry(country) {
         return null;
     }
 }
+
+export async function getExchangeRates(from, to) {
+    // אם המטבעות זהים – נחזיר תמיד 1 ולשונית התאריך הנוכחית
+    if (from === to) {
+        return {
+            rate: 1,
+            date: new Date().toISOString().split('T')[0]  // YYYY-MM-DD
+        };
+    }
+
+    const url = `https://api.frankfurter.app/latest?from=${encodeURIComponent(from)}&to=${encodeURIComponent(to)}`;
+    console.log("Fetch Frankfurter URL:", url);
+
+    const res = await fetch(url);
+    if (!res.ok) {
+        throw new Error(`Error fetching exchange rates: ${res.status} ${res.statusText}`);
+    }
+
+    const json = await res.json();
+    console.log("Frankfurter response:", json);
+
+    if (!json.rates || json.rates[to] === undefined) {
+        throw new Error(`Rate for '${to}' not found`);
+    }
+
+    return {
+        rate: json.rates[to],
+        date: json.date
+    };
+}
+
+
+
+
+

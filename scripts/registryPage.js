@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const userId = users.length > 0 ? users[users.length - 1].userId + 1 : 1;
 
         // Create a new user
-        const newUser = new User(userId, displayName, email, password);
+        const newUser = new User(userId, email, password, displayName);
 
         // Add the new user to the users array
         users.push(newUser);
