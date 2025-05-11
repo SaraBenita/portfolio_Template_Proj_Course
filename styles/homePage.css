@@ -1,20 +1,13 @@
-/* Home Page Styles for User CV Display */
-
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
-
 :root {
-    --primary-color: #4A90E2;
-    --primary-hover: #417ACB;
-    --secondary-color: #F5F7FA;
-    --accent-color: #50E3C2;
-    --accent-hover: #45C9AA;
-    --text-color: #333;
-    --bg-color: #fff;
-    --border-radius: 8px;
-    --gutter: 16px;
+    --primary-color: #2563eb;
+    --secondary-color: #1e40af;
+    --background-color: #f8fafc;
+    --text-color: #1e293b;
+    --accent-color: #3b82f6;
+    --section-padding: 5rem 0;
 }
 
-/* Base Reset */
+/* Base Styles */
 * {
     margin: 0;
     padding: 0;
@@ -23,231 +16,302 @@
 
 body {
     font-family: 'Inter', sans-serif;
-    background-color: var(--secondary-color);
-    color: var(--text-color);
     line-height: 1.6;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
+    color: var(--text-color);
+    background-color: var(--background-color);
 }
 
-/* Navbar */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+/* Navigation */
 .navbar {
-    background: var(--bg-color);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    padding: var(--gutter);
-    position: sticky;
+    background: white;
+    padding: 1rem 0;
+    position: fixed;
+    width: 100%;
     top: 0;
-    z-index: 100;
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    height: 70px;
+}
+
+.navbar .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-links {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+}
+
+.nav-links a {
+    color: var(--text-color);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+
+#hero {
+    min-height: 60vh;
+    /* שינוי מ-100vh ל-60vh */
+    padding-top: 100px;
+    padding-bottom: 3rem;
+    /* הקטנת הpadding התחתון */
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
     display: flex;
     align-items: center;
-    justify-content: space-between;
 }
 
-.navbar-brand {
-    font-size: 1.25rem;
-    font-weight: 600;
-    color: var(--primary-color);
-}
-
-#navDisplayName {
-    color: var(--accent-color);
-    margin-left: 4px;
-    font-weight: 500;
-}
-
-#logoutBtn {
-    background: transparent;
-    border: 2px solid var(--accent-color);
-    color: var(--accent-color);
-    padding: 8px 16px;
-    border-radius: var(--border-radius);
-    font-weight: 500;
-    transition: background 0.2s, color 0.2s;
-}
-
-#logoutBtn:hover {
-    background: var(--accent-color);
-    color: #fff;
-}
-
-/* Main Content */
-main {
-    flex: 1;
-    padding: calc(var(--gutter) * 2);
-    max-width: 900px;
+.hero-content {
+    text-align: center;
     width: 100%;
-    margin: 0 auto;
+    padding: 1rem 0;
+    /* הקטנת הpadding */
+}
+
+.hero-content h1 {
+    font-size: 2.8rem;
+    /* הקטנת גודל הפונט */
+    margin-bottom: 0.8rem;
+    /* הקטנת המרווח */
+}
+
+.hero-content p {
+    font-size: 1.2rem;
+    /* הקטנת גודל הפונט */
+    margin-bottom: 1.5rem;
+    /* הקטנת המרווח */
+}
+
+.social-links {
     display: flex;
-    flex-wrap: wrap;
-    gap: var(--gutter);
+    gap: 1rem;
+    justify-content: center;
 }
 
-section {
-    background: var(--bg-color);
-    padding: var(--gutter);
-    border-radius: var(--border-radius);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-    margin-bottom: calc(var(--gutter) * 2);
-}
-
-/* Ensure CV section spans full width */
-#cvSection {
-    flex: 1 1 100%;
-}
-
-/* Weather and Exchange side by side */
-#weatherSection,
-#matachSection {
-    flex: 1 1 calc(50% - var(--gutter));
-    margin-bottom: 0;
-    /* spacing handled by gap */
-}
-
-h2 {
-    font-size: 1.5rem;
-    font-weight: 600;
-    margin-bottom: var(--gutter);
-    color: var(--primary-color);
-    border-bottom: 2px solid var(--accent-color);
-    padding-bottom: 8px;
-}
-
-/* CV Section Content */
-#cvSection p {
-    margin-bottom: 8px;
-}
-
-#cvSection p strong {
-    color: var(--accent-color);
-}
-
-#cvSection a {
-    color: var(--primary-color);
+.social-links a {
+    color: white;
     text-decoration: none;
-    word-break: break-all;
+    padding: 0.5rem 1rem;
+    border: 2px solid white;
+    border-radius: 4px;
+    transition: all 0.3s ease;
 }
 
-#cvSection a:hover {
-    text-decoration: underline;
+
+/* שאר הסקשנים */
+section:not(#hero) {
+    padding: 5rem 0;
 }
 
-/* Skills List as Badges */
-#cvSection ul:first-of-type {
-    list-style: none;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-top: 8px;
-    margin-bottom: var(--gutter);
-    padding: 0;
+/* Media Queries */
+@media (max-width: 768px) {
+    .navbar {
+        height: 60px;
+    }
+
+    #hero {
+        padding-top: 100px;
+    }
+
+    .hero-content h1 {
+        font-size: 2.5rem;
+    }
 }
 
-#cvSection ul:first-of-type li {
-    background: var(--accent-color);
-    color: #fff;
-    padding: 6px 12px;
-    border-radius: var(--border-radius);
-    font-size: 0.9rem;
-    font-weight: 500;
+/* Sections */
+section {
+    padding: var(--section-padding);
 }
 
-/* Projects List as Cards */
-#cvSection ul:last-of-type {
-    list-style: none;
-    padding: 0;
-    margin-top: 8px;
-}
-
-#cvSection ul:last-of-type li {
-    background: var(--secondary-color);
-    padding: var(--gutter);
-    border-radius: var(--border-radius);
-    margin-bottom: var(--gutter);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-}
-
-#cvSection ul:last-of-type li strong {
-    display: block;
-    margin-bottom: 4px;
+section h2 {
+    text-align: center;
+    margin-bottom: 3rem;
+    font-size: 2.5rem;
     color: var(--primary-color);
 }
 
-#cvSection ul:last-of-type li a {
-    display: inline-block;
-    margin-top: 6px;
-    color: var(--accent-color);
-    font-size: 0.9rem;
+/* Skills Section */
+#skillsGrid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    justify-content: center;
 }
 
-#cvSection ul:last-of-type li a:hover {
-    text-decoration: underline;
-}
-
-/* Weather & Exchange Section Inputs */
-#weatherSection label,
-#matachSection label {
-    display: block;
-    margin-bottom: 4px;
-    font-weight: 500;
-}
-
-#weatherSection select,
-#matachSection select {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #d1d5db;
-    border-radius: var(--border-radius);
-    background: #fafafa;
-    font-size: 1rem;
-    margin-bottom: var(--gutter);
-}
-
-#weatherSection p,
-#matachSection p {
-    margin-bottom: 6px;
-}
-
-#weatherSection p strong,
-#matachSection p strong {
-    color: var(--accent-color);
-}
-
-/* Convert Button Styling */
-#convertBtn, #createCvBtn {
-    background: var(--primary-color);
-    color: #fff;
-    border: none;
-    padding: 12px 24px;
-    border-radius: var(--border-radius);
+.skill-item {
+    background: white;
+    padding: 1rem 2rem;
+    border-radius: 50px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    border: 2px solid var(--primary-color);
+    color: var(--primary-color);
     font-weight: 600;
+}
+
+.skill-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+    background: var(--primary-color);
+    color: white;
+}
+
+
+#aboutContent {
+    text-align: center;
+}
+/* Projects Section */
+#projectsGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    padding: 1rem;
+}
+
+.project-card {
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.project-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
+}
+
+.project-content {
+    padding: 1.5rem;
+}
+
+.project-content h3 {
+    color: var(--primary-color);
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.project-content p {
+    color: var(--text-color);
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+}
+
+.project-content a {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    background: var(--primary-color);
+    color: white;
+    text-decoration: none;
+    border-radius: 25px;
+    transition: all 0.3s ease;
+}
+
+.project-content a:hover {
+    background: var(--secondary-color);
+    transform: translateX(5px);
+}
+
+/* Tools Section */
+.tools-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.tool-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.tool-card h3 {
+    margin-bottom: 1.5rem;
+    color: var(--primary-color);
+}
+
+/* Form Elements */
+select,
+button {
+    width: 100%;
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+    border: 1px solid #e2e8f0;
+    border-radius: 4px;
+}
+
+button {
+    background: var(--primary-color);
+    color: white;
+    border: none;
     cursor: pointer;
-    transition: background 0.2s, transform 0.1s;
+    transition: background 0.3s ease;
 }
 
-#convertBtn:hover, #createCvBtn:hover {
-    background: var(--primary-hover);
-    transform: translateY(-2px);
+button:hover {
+    background: var(--secondary-color);
 }
 
-/* Responsive */
+/* Footer Styles */
+footer {
+    background: var(--primary-color);
+    color: white;
+    padding: 2rem 0;
+    margin-top: 2rem;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.footer-social {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.social-icon {
+    color: white;
+    font-size: 1.5rem;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+.social-icon:hover {
+    color: var(--accent-color);
+    transform: translateY(-3px);
+}
+
+.social-icon i {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 @media (max-width: 768px) {
-    main {
-        display: block;
+    .footer-content {
+        flex-direction: column;
+        text-align: center;
     }
 
-    #cvSection,
-    #weatherSection,
-    #matachSection {
-        flex: 1 1 100%;
-        margin-bottom: calc(var(--gutter) * 2);
-    }
-
-    .navbar-brand {
-        font-size: 1rem;
-    }
-
-    #logoutBtn {
-        padding: 6px 12px;
+    .footer-social {
+        margin-top: 1rem;
     }
 }

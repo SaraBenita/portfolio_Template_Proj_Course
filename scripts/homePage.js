@@ -9,109 +9,108 @@ import {
 document.addEventListener("DOMContentLoaded", async () => {
     const currentUser = getCurrentUser();
     if (!currentUser) {
-        document.body.innerHTML = "<p>User not logged in.</p>";
+        window.location.href = "../pages/loginPage.html";
         return;
     }
 
-    const nameSpan = document.getElementById("navDisplayName");
-    const logoutBtn = document.getElementById("logoutBtn");
-    if (nameSpan) nameSpan.textContent = currentUser.displayName;;
-    if (logoutBtn) logoutBtn.addEventListener("click", () => {
-        logoutUser(); // קריאה לפונקציה הקיימת
-        window.location.href = "../pages/loginPage.html"; // הפניה לדף ההתחברות
-    });;
+    // Update user information
+    document.getElementById("navDisplayName").textContent = currentUser.displayName;
+    document.getElementById("userName").textContent = currentUser.displayName;
 
+    // Load CV information
     const cv = loadUserCVInfo(currentUser.email);
-    const cvSection = document.getElementById("cvSection");
+    if (cv) {
+        // Update about section
+        document.getElementById("userTitle").textContent = cv.title || "Full Stack Developer";
+        document.getElementById("aboutContent").innerHTML = `<p>${cv.about}</p>`;
 
-    if (!cv) {
-        cvSection.innerHTML = `
-      <p>No CV info found for this user.</p>
-      <button id="createCvBtn" class="btn">Create CV Now</button>
-    `;
-        // Listener לכפתור שיפנה לדף יצירת קורות חיים
-        document
-            .getElementById("createCvBtn")
-            .addEventListener("click", () => {
-                window.location.href = "../pages/firstSession.html"; // שנה לנתיב הרלוונטי
-            });
-        return;
-    }
+        // Update social links
+        if (cv.github) document.getElementById("githubLink").href = cv.github;
+        if (cv.linkedin) document.getElementById("linkedinLink").href = cv.linkedin;
 
-    // Inject CV content
-    cvSection.innerHTML += `
-      <p><strong>Display Name:</strong> ${currentUser.displayName}</p>
-      <p><strong>Email:</strong> ${cv.email}</p>
-      <p><strong>About:</strong> ${cv.about}</p>
-      <p><strong>Phone:</strong> ${cv.phoneNumber}</p>
-      <p><strong>GitHub:</strong> <a href="${cv.github}" target="_blank">${cv.github}</a></p>
-      <p><strong>LinkedIn:</strong> <a href="${cv.linkedin}" target="_blank">${cv.linkedin}</a></p>
-  
-      <h3 class="mt-4">Skills</h3>
-      <ul>${cv.skills.map(skill => `<li>${skill}</li>`).join("")}</ul>
-  
-      <h3 class="mt-4">Projects</h3>
-      <ul>${cv.projects.map(p => `
-        <li>
-          <strong>${p.projectName}</strong> ${p.projectDescription}<br>
-          <a href="${p.projectLink}" target="_blank">${p.projectLink}</a>
-        </li>`).join("")}
-      </ul>
-    `;
+        // Update skills
+        const skillsGrid = document.getElementById("skillsGrid");
+        skillsGrid.innerHTML = cv.skills.map(skill => `
+            <div class="skill-item">${skill}</div>
+        `).join("");
 
-    if (cv.weather) {
+        // Update projects
+        const projectsGrid = document.getElementById("projectsGrid");
+        projectsGrid.innerHTML = cv.projects.map(project => `
+    <div class="project-card">
+        <div class="project-content">
+            <h3>${project.projectName}</h3>
+            <p>${project.projectDescription}</p>
+            <a href="${project.projectLink}" target="_blank">
+                View Project <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+    </div>
+`).join("");
 
-        const weatherSection = document.getElementById("weatherSection");
+        // Initialize weather widget if enabled
+        if (cv.weather) {
+            const weatherSection = document.getElementById("weatherSection");
+            weatherSection.style.display = "block";
 
-        weatherSection.style.display = "block";
+            const countrySelect = document.getElementById("countrySelect");
+            countrySelect.addEventListener("change", updateWeather);
+            await updateWeather();
+        }
 
-        // Load and display weather for the default country
-        const countrySelect = document.getElementById("countrySelect");
-        countrySelect.addEventListener("change", updateWeather);
+        // Initialize currency exchange if enabled
+        if (cv.matach) {
+            const matachSection = document.getElementById("matachSection");
+            matachSection.style.display = "block";
 
-        // Initial weather load
-        await updateWeather();
+            const convertBtn = document.getElementById("convertBtn");
+            convertBtn.addEventListener("click", updateExchange);
+            await updateExchange();
+        }
 
-    }
 
-    if (cv.matach) {
-        const matachSection = document.getElementById("matachSection");
-        matachSection.style.display = "block";
-
-        const fromSelect = document.getElementById("fromCurrency");
-        const toSelect = document.getElementById("toCurrency");
-        const convertBtn = document.getElementById("convertBtn");
-        const rateSpan = document.getElementById("exchange-rate");
-        const dateSpan = document.getElementById("exchange-date");
-
-        // פעולה ראשונית
-        await updateExchange();
-
-        convertBtn.addEventListener("click", updateExchange);
-
-        async function updateExchange() {
-            const from = fromSelect.value;
-            const to = toSelect.value;
-            try {
-                const data = await getExchangeRates(from, to);
-                // נניח שה-API מחזיר מבנה { rate: number, date: string }
-                rateSpan.textContent = data.rate.toFixed(4);
-                dateSpan.textContent = new Date().toLocaleString();
-            } catch (err) {
-                console.warn("Failed to load exchange rates:", err);
-                rateSpan.textContent = "Error";
-                dateSpan.textContent = "-";
+        // Update footer social links with error handling
+        try {
+            // Update LinkedIn
+            const linkedinLink = document.querySelector('.footer-social a[href*="linkedin"]');
+            if (linkedinLink && cv.linkedin) {
+                linkedinLink.href = cv.linkedin;
             }
+
+            // Update GitHub
+            const githubLink = document.querySelector('.footer-social a[href*="github"]');
+            if (githubLink && cv.github) {
+                githubLink.href = cv.github;
+            }
+
+            // Update Email
+            const emailLink = document.querySelector('.footer-social a[href*="mailto"]');
+            if (emailLink && cv.email) {
+                emailLink.href = `mailto:${cv.email}`;
+            }
+
+            // Update Phone
+            const phoneLink = document.querySelector('.footer-social a[href*="tel"]');
+            if (phoneLink && cv.phoneNumber) {
+                phoneLink.href = `tel:${cv.phoneNumber}`;
+            }
+        } catch (error) {
+            console.error("Error updating footer links:", error);
         }
     }
 
+    // Event Listeners
+    document.getElementById("logoutBtn").addEventListener("click", () => {
+        logoutUser();
+        window.location.href = "../pages/loginPage.html";
+    });
+
+    // Helper Functions
     async function updateWeather() {
-        const selectedCountry = countrySelect.value;
+        const selectedCountry = document.getElementById("countrySelect").value;
         try {
-            const weather = await getWeatherByCountry(selectedCountry); // Fetch weather based on selected country
+            const weather = await getWeatherByCountry(selectedCountry);
             if (weather) {
-                const weatherSection = document.getElementById("weatherSection");
-                weatherSection.classList.remove("d-none");
                 document.getElementById("weather-city").textContent = weather.city;
                 document.getElementById("weather-temp").textContent = weather.temperature;
                 document.getElementById("weather-desc").textContent = weather.description;
@@ -123,4 +122,18 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
     }
 
+    async function updateExchange() {
+        const fromSelect = document.getElementById("fromCurrency");
+        const toSelect = document.getElementById("toCurrency");
+        const from = fromSelect.value;
+        const to = toSelect.value;
+
+        try {
+            const data = await getExchangeRates(from, to);
+            document.getElementById("exchange-rate").textContent = data.rate.toFixed(4);
+            document.getElementById("exchange-date").textContent = new Date().toLocaleString();
+        } catch (err) {
+            console.warn("Failed to load exchange rates:", err);
+        }
+    }
 });

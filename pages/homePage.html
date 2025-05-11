@@ -4,83 +4,141 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../styles/homePage.css" />
-    <title>User Details</title>
+    <title>Portfolio</title>
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light px-3">
-        <div class="container-fluid justify-content-between">
-            <span class="navbar-brand mb-0 h1">Hi, <span id="navDisplayName">Guest</span></span>
-            <button class="btn btn-outline-danger" id="logoutBtn">Logout</button>
+    <nav class="navbar">
+        <div class="container">
+            <span class="navbar-brand">Welcome, <span id="navDisplayName">Guest</span></span>
+            <div class="nav-links">
+                <a href="#about">About</a>
+                <a href="#projects">Projects</a>
+                <a href="#skills">Skills</a>
+                <a href="#tools">Tools</a>
+                <button id="logoutBtn">Logout</button>
+            </div>
         </div>
     </nav>
 
     <main>
-        <section id="cvSection">
-            <h2 class="mb-4">CV Information</h2>
-            <!-- CV content will be injected here -->
+        <!-- Hero Section -->
+        <section id="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <h1>Hi, I'm <span id="userName">Guest</span></h1>
+                    <p id="userTitle">Full Stack Developer</p>
+                    <div class="social-links">
+                        <a id="githubLink" href="#" target="_blank">GitHub</a>
+                        <a id="linkedinLink" href="#" target="_blank">LinkedIn</a>
+                    </div>
+                </div>
+            </div>
         </section>
 
-        <!-- Weather Info Section -->
-        <section id="weatherSection" style="display: none;">
-            <h2 class="mb-4">Weather Information</h2>
-
-            <!-- Country Selector -->
-            <div class="mb-3">
-                <label for="countrySelect" class="form-label">Select Country</label>
-                <select id="countrySelect" class="form-select">
-                    <option value="United Kingdom">United Kingdom</option>
-                    <option value="United States">United States</option>
-                    <option value="France">France</option>
-                    <option value="Germany">Germany</option>
-                    <option value="Israel">Israel</option>
-                    <option value="Japan">Japan</option>
-                    <option value="India">India</option>
-                </select>
+        <!-- About Section -->
+        <section id="about">
+            <div class="container">
+                <h2>About Me</h2>
+                <div id="aboutContent"></div>
             </div>
-
-            <!-- Weather Data Display -->
-            <p><strong>City:</strong> <span id="weather-city"></span></p>
-            <p><strong>Temperature:</strong> <span id="weather-temp"></span>°C</p>
-            <p><strong>Description:</strong> <span id="weather-desc"></span></p>
-            <p><strong>Feels Like:</strong> <span id="weather-feels"></span>°C</p>
-            <p><strong>Humidity:</strong> <span id="weather-humidity"></span>%</p>
         </section>
 
-        <section id="matachSection" style="display: none;">
-            <h2 class="mb-4">Currency Exchange</h2>
-
-            <div class="exchange-controls mb-3">
-                <label for="fromCurrency">From:</label>
-                <select id="fromCurrency" class="form-select">
-                    <option value="USD">USD</option>
-                    <option value="EUR">EUR</option>
-                    <option value="ILS">ILS</option>
-                    <!-- הוסף כאן עוד מטבעות כרצונך -->
-                </select>
-
-                <label for="toCurrency" class="mt-2">To:</label>
-                <select id="toCurrency" class="form-select">
-                    <option value="ILS">ILS</option>
-                    <option value="USD">USD</option>
-                    <option value="EUR">EUR</option>
-                    <!-- הוסף כאן עוד מטבעות כרצונך -->
-                </select>
-
-                <button type="button" id="convertBtn" class="btn btn-primary mt-3">
-                    Convert
-                </button>
+        <!-- Projects Section -->
+        <section id="projects">
+            <div class="container">
+                <h2>Projects</h2>
+                <div id="projectsGrid"></div>
             </div>
+        </section>
 
-            <div id="exchangeResult">
-                <!-- כאן יופיעו התוצאות -->
-                <p><strong>Rate:</strong> <span id="exchange-rate"></span></p>
-                <p><strong>Last Updated:</strong> <span id="exchange-date"></span></p>
+        <!-- Skills Section -->
+        <section id="skills">
+            <div class="container">
+                <h2>Skills</h2>
+                <div id="skillsGrid"></div>
+            </div>
+        </section>
+
+        <!-- Tools Section -->
+        <section id="tools">
+            <div class="container">
+                <h2>Tools</h2>
+                <div class="tools-grid">
+                    <!-- Weather Widget -->
+                    <div id="weatherSection" class="tool-card">
+                        <h3>Weather Information</h3>
+                        <select id="countrySelect">
+                            <option value="Israel">Israel</option>
+                            <option value="United States">United States</option>
+                            <option value="United Kingdom">United Kingdom</option>
+                            <option value="France">France</option>
+                            <option value="Germany">Germany</option>
+                        </select>
+                        <div class="weather-info">
+                            <p><strong>City:</strong> <span id="weather-city"></span></p>
+                            <p><strong>Temperature:</strong> <span id="weather-temp"></span>°C</p>
+                            <p><strong>Description:</strong> <span id="weather-desc"></span></p>
+                            <p><strong>Feels Like:</strong> <span id="weather-feels"></span>°C</p>
+                            <p><strong>Humidity:</strong> <span id="weather-humidity"></span>%</p>
+                        </div>
+                    </div>
+
+                    <!-- Currency Exchange Widget -->
+                    <div id="matachSection" class="tool-card">
+                        <h3>Currency Exchange</h3>
+                        <div class="exchange-controls">
+                            <div class="currency-select">
+                                <label for="fromCurrency">From:</label>
+                                <select id="fromCurrency">
+                                    <option value="USD">USD</option>
+                                    <option value="EUR">EUR</option>
+                                    <option value="ILS">ILS</option>
+                                </select>
+                            </div>
+                            <div class="currency-select">
+                                <label for="toCurrency">To:</label>
+                                <select id="toCurrency">
+                                    <option value="ILS">ILS</option>
+                                    <option value="USD">USD</option>
+                                    <option value="EUR">EUR</option>
+                                </select>
+                            </div>
+                            <button id="convertBtn">Convert</button>
+                        </div>
+                        <div id="exchangeResult">
+                            <p><strong>Rate:</strong> <span id="exchange-rate"></span></p>
+                            <p><strong>Last Updated:</strong> <span id="exchange-date"></span></p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
     </main>
 
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <p>&copy; 2024 Portfolio. All rights reserved.</p>
+                <div class="footer-social">
+                    <a href="https://linkedin.com/in/your-profile" target="_blank" class="social-icon">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                    <a href="https://github.com/your-username" target="_blank" class="social-icon">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="mailto:your.email@gmail.com" class="social-icon">
+                        <i class="far fa-envelope"></i>
+                    </a>
+                    <a href="tel:+972501234567" class="social-icon">
+                        <i class="fas fa-phone"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
 
     <script type="module" src="../scripts/homePage.js"></script>
 </body>
