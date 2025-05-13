@@ -197,6 +197,52 @@ button:disabled {
     flex: 1 1 calc(33% - var(--gutter));
 }
 
+.skill-category-group {
+    border: 1px solid #ccc;
+    border-radius: 12px;
+    padding: 1rem 1.25rem;
+    background-color: #ffffff;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    transition: box-shadow 0.2s;
+}
+
+.skill-category-group:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.skill-category-group h3 {
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+    color: #0D7DFF;
+    font-weight: 600;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 0.5rem;
+}
+
+.skill-category-group label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 0.5rem;
+    font-size: 0.95rem;
+    color: #333;
+    padding: 0.25rem;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+
+.skill-category-group label:hover {
+    background-color: #f2f7ff;
+}
+
+.skill-category-group input[type="checkbox"] {
+    transform: scale(1.2);
+    accent-color: #0D7DFF;
+}
+
+
 /* Responsive */
 @media (max-width: 768px) {
     form#cvForm {

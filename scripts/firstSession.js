@@ -51,17 +51,53 @@ document.addEventListener("DOMContentLoaded", async () => {
     showStep(currentStep); // הצגה התחלתית
 
 
-    document.getElementById("AddSkill").addEventListener("click", () => {
-        index++;
+    const skillData = {
+        "Frontend Development": ["HTML", "CSS", "JavaScript", "React", "Vue"],
+        "Backend Development": ["Node.js", "Express", ".NET", "Java", "Python"],
+        "Database": ["MySQL", "PostgreSQL", "MongoDB", "SQLite"]
+    };
 
-        const newInput = document.createElement("input");
-        newInput.type = "text";
-        newInput.id = `skill${index}`;
-        newInput.className = "skill-input";
-        newInput.required = true;
+    const container = document.getElementById("skillsContainer");
+    container.classList.add("skills-grid");
 
-        document.getElementById("skillsContainer").appendChild(newInput);
+    Object.entries(skillData).forEach(([category, skills]) => {
+        const categoryDiv = document.createElement("div");
+        categoryDiv.className = "skill-category-group";
+
+        const title = document.createElement("h3");
+        title.textContent = category;
+        categoryDiv.appendChild(title);
+
+        skills.forEach(skill => {
+            const label = document.createElement("label");
+            label.style.display = "block"; // Keep label as block to stack items nicely
+
+            const wrapper = document.createElement("div");
+            wrapper.style.display = "flex";
+            wrapper.style.justifyContent = "space-between";
+            wrapper.style.alignItems = "center";
+            wrapper.style.gap = "1rem"; // Optional for spacing
+            wrapper.style.padding = "0.25rem 0";
+
+            const skillText = document.createElement("span");
+            skillText.textContent = skill;
+
+            const checkbox = document.createElement("input");
+            checkbox.type = "checkbox";
+            checkbox.name = "skills";
+            checkbox.value = skill;
+
+            wrapper.appendChild(skillText);
+            wrapper.appendChild(checkbox);
+            label.appendChild(wrapper);
+            categoryDiv.appendChild(label);
+
+           
+        });
+
+        container.appendChild(categoryDiv);
     });
+
 
     // הוספת פרויקט
     let projectCounter = 0;
@@ -90,11 +126,8 @@ document.addEventListener("DOMContentLoaded", async () => {
         const linkedin = document.getElementById("linkedin").value;
         const about = document.getElementById("about").value;
 
-
-        const skillInputs = document.querySelectorAll(".skill-input");
-        const skills = Array.from(skillInputs)
-            .map(input => input.value.trim())
-            .filter(val => val !== "");
+        const checkedSkillBoxes = document.querySelectorAll("input[name='skills']:checked");
+        const skills = Array.from(checkedSkillBoxes).map(cb => cb.value);
 
         const weather = document.getElementById("weather").checked;
         const matach = document.getElementById("matach").checked;
@@ -125,5 +158,6 @@ document.addEventListener("DOMContentLoaded", async () => {
             window.location.href = "../pages/homePage.html";
         }
     });
+
 
 });
